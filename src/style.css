@@ -1,0 +1,51 @@
+.header {
+  position: fixed;
+  height: 67px;
+  width: 100vw;
+  background-color: #c3cfd9;
+  color: #e8833a;
+  font-size: 34px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.movies-list-title {
+  width: 100vw;
+  height: 110px;
+  margin-top: 67px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 400;
+}
+.movies-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.movies {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.movie {
+  width: 138px;
+  height: 201px;
+  background-color: #ffffff;
+  margin: 19px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.movie img {
+  width: 129px;
+  height: 193px;
+  padding: 8px;
+}
