@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function Hours({ id, name }) {
@@ -15,7 +15,11 @@ function ShowTimes({ movieShowtime }) {
         </div>
         <div className="movie-showtime-hour">
           {showtime.showtimes.map((hour) => {
-            return <Hours key={hour.id} name={hour.name} />;
+            return (
+              <Link key={hour.id} to={`/assentos/${hour.id}`}>
+                <Hours name={hour.name} />
+              </Link>
+            );
           })}
         </div>
       </div>
@@ -48,7 +52,7 @@ export default function MovieAvailability() {
       </div>
       <div className="movie-availability-footer">
         <div className="movie-availability-footer-image">
-        <img src={movieShowtime.posterURL} />
+          <img src={movieShowtime.posterURL} alt={movieShowtime.title} />
         </div>
         <p>{movieShowtime.title}</p>
       </div>

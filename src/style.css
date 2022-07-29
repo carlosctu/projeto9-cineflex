@@ -110,3 +110,38 @@
   width: 48px;
   height: 72px;
 }
+.movie-sessions-seats {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  row-gap: 16px;
+  column-gap: 7px;
+  margin: 80px 24px 0 24px;
+}
+.movie-sessions-seat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #c3cfd9;
+}
+.movie-sessions-seat-not-available {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #fbe192;
+}
+.movie-availability-footer-description {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
