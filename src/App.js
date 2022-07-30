@@ -5,6 +5,7 @@ import MoviesList from "./movies_list";
 import Header from "./header";
 import "./reset.css";
 import "./style.css";
+import MovieCheckout from "./movie_checkout";
 export default function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ export default function App() {
           path="/assentos/:movieSessionId"
           element={<MovieSession />}
         ></Route>
+        <Route path="/checkout" element={<MovieCheckout />}></Route>
       </Routes>
     </BrowserRouter>
   );

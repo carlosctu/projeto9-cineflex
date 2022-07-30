@@ -33,7 +33,7 @@ export default function MovieAvailability() {
   const moviesId = useParams();
   useEffect(() => {
     const promise = axios.get(
-      `https://mock-api.driven.com.br/api/v5/cineflex/movies/${moviesId.moviesId}/showtimes`
+      `https://mock-api.driven.com.br/api/v7/cineflex/movies/${moviesId.moviesId}/showtimes`
     );
     promise.then((response) => {
       setMovieShowtime(response.data);

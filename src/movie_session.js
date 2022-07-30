@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MovieSessionsFooter from "./movie_sessions_footer";
 import MovieSessionTitle from "./movie_session_title";
@@ -7,6 +7,13 @@ import MovieSessionReferences from "./movie-sessions-reference";
 
 export default function MovieSession() {
   const seatClass = "movie-sessions-seat";
+  const [seat, setSeat] = useState([]);
+  const [sessionInfo, setInfo] = useState({
+    title: "",
+    day: "",
+    hour: "",
+    seats: [],
+  });
   const [sessions, setSessions] = useState("");
   const [seats, setSeats] = useState([]);
   const [makeReservation, setReservation] = useState({
@@ -15,15 +22,25 @@ export default function MovieSession() {
     cpf: "",
   });
   const movieSessionId = useParams();
+  console.log(sessionInfo);
   useEffect(() => {
     setReservation((reservations) => ({ ...reservations, ids: seats }));
-  }, [seats]);
+    setInfo((info) => ({ ...info, seats: seat }));
+  }, [seats, seat]);
 
   useEffect(() => {
     const promise = axios.get(
       `https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${movieSessionId.movieSessionId}/seats`
     );
-    promise.then((response) => setSessions(response.data));
+    promise.then((response) => {
+      setSessions(response.data);
+      setInfo((userInfo) => ({
+        ...userInfo,
+        title: response.data.movie.title,
+        day: response.data.day.date,
+        hour: response.data.name,
+      }));
+    });
     promise.catch((error) => console.log("Deu erro " + error));
   }, [movieSessionId]);
   return (
@@ -36,9 +53,7 @@ export default function MovieSession() {
                 <ReservSeat
                   key={session.id}
                   session={session}
-                  setReservation={setReservation}
-                  makeReservation={makeReservation}
-                  seats={seats}
+                  setSeat={setSeat}
                   setSeats={setSeats}
                   seatClass={
                     session.isAvailable
@@ -54,13 +69,14 @@ export default function MovieSession() {
       <MovieSessionsForm
         setReservation={setReservation}
         makeReservation={makeReservation}
+        sessionInfo={sessionInfo}
       />
       <MovieSessionsFooter sessions={sessions} />
     </>
   );
 }
 
-function ReservSeat({ session, seatClass, seats, setSeats }) {
+function ReservSeat({ session, setSeat, seatClass, setSeats }) {
   const [reserveSeat, setReserveSeat] = useState(false);
   return (
     <div
@@ -70,7 +86,8 @@ function ReservSeat({ session, seatClass, seats, setSeats }) {
           return alert("Assento não disponível, favor escolha outro");
         }
         setReserveSeat((prevState) => !prevState);
-        setSeats([...seats, session.id]);
+        setSeats((seats) => [...seats, session.id]);
+        setSeat((seat) => [...seat, session.name]);
       }}
     >
       {session.name}
@@ -78,7 +95,9 @@ function ReservSeat({ session, seatClass, seats, setSeats }) {
   );
 }
 
-function MovieSessionsForm({ setReservation, makeReservation }) {
+function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
+  const navigate = useNavigate();
+
   function handleForm(event) {
     setReservation({
       ...makeReservation,
@@ -96,6 +115,18 @@ function MovieSessionsForm({ setReservation, makeReservation }) {
         promise.then((response) => console.log("deu boa: " + response.data));
         promise.then((error) => console.log("deu ruim: " + error));
         event.preventDefault();
+
+        navigate("/checkout", {
+          state: {
+            name: makeReservation.name,
+            userId: makeReservation.cpf,
+            title: sessionInfo.title,
+            day: sessionInfo.day,
+            hour: sessionInfo.hour,
+            seats: sessionInfo.seats,
+          },
+          replace: true,
+        });
       }}
     >
       <div className="movie-sessions-form-input">
