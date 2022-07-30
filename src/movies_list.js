@@ -20,7 +20,6 @@ export default function MoviesList() {
         <h3>Selecione o filme</h3>
       </div>
       <div className="movies">
-        {console.log(movie)}
         {movie
           ? movie.map((e, index) => {
               return (

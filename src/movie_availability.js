@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Footer from "./footer";
 
 function Hours({ id, name }) {
   return <button key={id}>{name}</button>;
@@ -39,7 +40,6 @@ export default function MovieAvailability() {
     });
     promise.catch((error) => console.log("erro " + error));
   }, [moviesId]);
-  console.log(movieShowtime);
   return (
     <>
       <div className="movie-availability">
@@ -50,12 +50,7 @@ export default function MovieAvailability() {
           "Carregando.."
         )}
       </div>
-      <div className="movie-availability-footer">
-        <div className="movie-availability-footer-image">
-          <img src={movieShowtime.posterURL} alt={movieShowtime.title} />
-        </div>
-        <p>{movieShowtime.title}</p>
-      </div>
+      <Footer movieShowtime={movieShowtime} />
     </>
   );
 }
