@@ -54,6 +54,7 @@
 
 .movie-availability {
   padding-top: 67px;
+  padding-bottom: 117px;
 }
 .movie-availability-title {
   height: 110px;
@@ -190,6 +191,7 @@
 }
 
 .movie-sessions-form {
+  padding-bottom: 147px;
   display: flex;
   flex-direction: column;
   justify-content: center;

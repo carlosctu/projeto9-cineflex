@@ -84,7 +84,6 @@ function MovieSessionsForm({ setReservation, makeReservation }) {
       ...makeReservation,
       [event.target.name]: event.target.value,
     });
-    console.log(makeReservation);
   }
   return (
     <form
