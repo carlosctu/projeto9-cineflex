@@ -125,15 +125,21 @@
   font-weight: 400;
   line-height: 28px;
 }
+.movie-sessions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .movie-sessions-seats {
   display: flex;
+  width: 371px;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   row-gap: 16px;
-  column-gap: 7px;
-  margin: 0 24px;
+  column-gap: 10px;
 }
 .movie-sessions-seat {
   display: flex;
@@ -268,7 +274,6 @@
   align-items: center;
   margin-top: 42px;
   text-decoration: none;
-  
 }
 
 .movie-checkout-button button {
