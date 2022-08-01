@@ -1,0 +1,33 @@
+.movie-sessions-seat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #c3cfd9;
+  cursor: pointer;
+}
+.movie-sessions-seat-not-available {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #fbe192;
+  cursor: no-drop;
+}
+.movie-sessions-seat-reserving {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #8dd7cf;
+  cursor: pointer;
+}

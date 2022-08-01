@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import MovieSessionsFooter from "./movie_sessions_footer";
-import MovieSessionTitle from "./movie_session_title";
 import MovieSessionReferences from "./movie-sessions-reference";
+import MovieSessionTitle from "./movie_session_title";
+import Footer from "../fixed_components/footer";
+import styled from "styled-components";
+import "./style.css"
+import axios from "axios";
 
 export default function MovieSession() {
   const seatClass = "movie-sessions-seat";
@@ -46,8 +48,8 @@ export default function MovieSession() {
   return (
     <>
       <MovieSessionTitle />
-      <div className="movie-sessions">
-        <div className="movie-sessions-seats">
+      <Wrapper>
+        <Seats>
           {sessions
             ? sessions.seats.map((session) => {
                 return (
@@ -65,22 +67,30 @@ export default function MovieSession() {
                 );
               })
             : "Carregando..."}
-        </div>
-      </div>
+        </Seats>
+      </Wrapper>
       <MovieSessionReferences seatClass={seatClass} />
       <MovieSessionsForm
         setReservation={setReservation}
         makeReservation={makeReservation}
         sessionInfo={sessionInfo}
       />
-      <MovieSessionsFooter sessions={sessions} />
+      {sessions ? (
+        <Footer showTime={sessions.movie}>
+          <FooterInfo>
+            <p>{sessions.movie.title}</p>
+            <p>{`${sessions.day.weekday} ${sessions.name}`}</p>
+          </FooterInfo>
+        </Footer>
+      ) : (
+        ""
+      )}
     </>
   );
 }
 
 function ReservSeat({ session, setSeat, seatClass, setSeats }) {
   const [reserveSeat, setReserveSeat] = useState(false);
-
   function handleReserve(event) {
     if (event.target.className === "movie-sessions-seat-not-available") {
       return alert("Assento não disponível, favor escolha outro");
@@ -107,7 +117,6 @@ function ReservSeat({ session, setSeat, seatClass, setSeats }) {
 
 function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
   const navigate = useNavigate();
-
   function handleForm(event) {
     setReservation({
       ...makeReservation,
@@ -115,9 +124,12 @@ function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
     });
   }
   return (
-    <form
-      className="movie-sessions-form"
+    <Form
       onSubmit={(event) => {
+        if (sessionInfo.seats.length === 0) {
+          event.preventDefault();
+          return alert("Nenhum assento selecionado!");
+        }
         const promise = axios.post(
           "https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many",
           makeReservation
@@ -138,32 +150,105 @@ function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
         });
       }}
     >
-      <div className="movie-sessions-form-input">
-        <div>
-          <label>Nome do comprador:</label>
-        </div>
-        <input
+      <InputForm label="Nome do comprador:">
+        <Input
           type="text"
           placeholder="Digite seu nome..."
           name="name"
           onChange={handleForm}
-        ></input>
-      </div>
-
-      <div className="movie-sessions-form-input">
-        <div>
-          <label>CPF do comprador:</label>
-        </div>
-        <input
+          required
+        />
+      </InputForm>
+      <InputForm label="CPF do comprador:">
+        <Input
           type="text"
           name="cpf"
           placeholder="Digite seu CPF..."
           onChange={handleForm}
-        ></input>
-      </div>
-      <div className="movie-sessions-form-button">
-        <button>Reservar assentos(s)</button>
-      </div>
-    </form>
+          pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+          title="Favor digite o CPF no formato: xxx.xxx.xxx-xx"
+          required
+        />
+      </InputForm>
+      <ButtonContainer>
+        <Button>Reservar assentos(s)</Button>
+      </ButtonContainer>
+    </Form>
   );
 }
+
+function InputForm(props) {
+  const { label, children } = props;
+  return (
+    <FormInputs>
+      <div>
+        <label>{label}</label>
+      </div>
+      {children}
+    </FormInputs>
+  );
+}
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Seats = styled.div`
+  display: flex;
+  width: 371px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  row-gap: 16px;
+  column-gap: 10px;
+`;
+
+const FooterInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+`;
+
+const Form = styled.form`
+  padding-bottom: 147px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 400;
+  row-gap: 18px;
+`;
+
+const FormInputs = styled.div`
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  width: 327px;
+  height: 36px;
+  padding-left: 18px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 225px;
+  height: 36px;
+  margin-top: 57px;
+`;
+
+const Button = styled.button`
+  width: 225px;
+  height: 36px;
+  background-color: #e8833a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  margin: 22px 8px 23px 0;
+`;
