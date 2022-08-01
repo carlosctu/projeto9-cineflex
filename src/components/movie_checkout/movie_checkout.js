@@ -47,6 +47,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin-left: 28px;
   display: flex;
+  font-family: "Roboto", sans-serif;
   flex-direction: column;
   row-gap: 22px;
 `;
@@ -60,16 +61,17 @@ const Title = styled.div`
   justify-content: center;
   color: #247a6b;
   font-size: 24px;
+  font-family: "Roboto", sans-serif;
   font-weight: 700;
 `;
 const TextContainer = styled.div`
   h1 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 8px;
   }
   p {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
   }
 `;
@@ -80,6 +82,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 42px;
+
   text-decoration: none;
 `;
 
@@ -89,6 +92,8 @@ const Button = styled.button`
   background-color: #e8833a;
   color: #ffffff;
   border: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   margin: 22px 8px 23px 0;

@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 24px;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   line-height: 28px;
 `;

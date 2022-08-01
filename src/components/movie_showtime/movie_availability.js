@@ -51,6 +51,7 @@ function ShowTimes({ movieShowtime }) {
 const Wrapper = styled.div`
   padding-top: 67px;
   padding-bottom: 117px;
+  font-family: 'Roboto', sans-serif;
 `;
 const Title = styled.div`
   height: 110px;
@@ -63,7 +64,7 @@ const Title = styled.div`
 `;
 const Body = styled.div``;
 const MovieDate = styled.div`
-  width: 241px;
+  width: 281px;
   height: 35px;
   margin-left: 23px;
   font-size: 20px;

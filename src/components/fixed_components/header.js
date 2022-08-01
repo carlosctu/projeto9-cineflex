@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   background-color: #c3cfd9;
   color: #e8833a;
   font-size: 34px;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   display: flex;
   align-items: center;

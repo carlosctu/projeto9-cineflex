@@ -4,7 +4,7 @@ import MovieSessionReferences from "./movie-sessions-reference";
 import MovieSessionTitle from "./movie_session_title";
 import Footer from "../fixed_components/footer";
 import styled from "styled-components";
-import "./style.css"
+import "./style.css";
 import axios from "axios";
 
 export default function MovieSession() {
@@ -28,8 +28,7 @@ export default function MovieSession() {
     setReservation((reservations) => ({ ...reservations, ids: seats }));
     setInfo((info) => ({ ...info, seats: seat }));
   }, [seats, seat]);
-  console.log(seats);
-  console.log(seat);
+
   useEffect(() => {
     const promise = axios.get(
       `https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${movieSessionId.movieSessionId}/seats`
@@ -50,23 +49,16 @@ export default function MovieSession() {
       <MovieSessionTitle />
       <Wrapper>
         <Seats>
-          {sessions
-            ? sessions.seats.map((session) => {
+          {sessions ? sessions.seats.map((session) => {
                 return (
                   <ReservSeat
                     key={session.id}
                     session={session}
                     setSeat={setSeat}
                     setSeats={setSeats}
-                    seatClass={
-                      session.isAvailable
-                        ? seatClass
-                        : `${seatClass}-not-available`
-                    }
-                  />
-                );
-              })
-            : "Carregando..."}
+                    seatClass={session.isAvailable ? seatClass
+                        : `${seatClass}-not-available`}/>);
+              }) : "Carregando..."}
         </Seats>
       </Wrapper>
       <MovieSessionReferences seatClass={seatClass} />
@@ -81,10 +73,8 @@ export default function MovieSession() {
             <p>{sessions.movie.title}</p>
             <p>{`${sessions.day.weekday} ${sessions.name}`}</p>
           </FooterInfo>
-        </Footer>
-      ) : (
-        ""
-      )}
+        </Footer>)
+         : ("")}
     </>
   );
 }
@@ -106,12 +96,9 @@ function ReservSeat({ session, setSeat, seatClass, setSeats }) {
   }
 
   return (
-    <div
-      className={reserveSeat ? `${seatClass}-reserving` : seatClass}
-      onClick={handleReserve}
-    >
-      {session.name}
-    </div>
+    <div className={reserveSeat ? `${seatClass}-reserving` : seatClass}
+      onClick={handleReserve}>
+      {session.name} </div>
   );
 }
 
@@ -124,8 +111,7 @@ function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
     });
   }
   return (
-    <Form
-      onSubmit={(event) => {
+    <Form onSubmit={(event) => {
         if (sessionInfo.seats.length === 0) {
           event.preventDefault();
           return alert("Nenhum assento selecionado!");
@@ -145,8 +131,7 @@ function MovieSessionsForm({ setReservation, makeReservation, sessionInfo }) {
             day: sessionInfo.day,
             hour: sessionInfo.hour,
             seats: sessionInfo.seats,
-          },
-          replace: true,
+          }, replace: true,
         });
       }}
     >
@@ -210,6 +195,7 @@ const FooterInfo = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  padding-right: 10px;
 `;
 
 const Form = styled.form`
@@ -219,6 +205,7 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   font-size: 18px;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   row-gap: 18px;
 `;
@@ -231,6 +218,8 @@ const Input = styled.input`
   width: 327px;
   height: 36px;
   padding-left: 18px;
+  margin-top: 6px;
+  font-style: italic;
 `;
 
 const ButtonContainer = styled.div`
@@ -239,6 +228,8 @@ const ButtonContainer = styled.div`
   justify-content: center;
   width: 225px;
   height: 36px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   margin-top: 57px;
 `;
 

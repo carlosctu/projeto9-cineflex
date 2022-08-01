@@ -56,6 +56,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 24px;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
 `;
 

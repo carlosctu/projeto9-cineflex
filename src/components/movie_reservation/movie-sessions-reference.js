@@ -23,6 +23,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   column-gap: 34px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   margin: 16px 0 40px 0;
 `;
 const Container = styled.div`
@@ -31,7 +33,6 @@ const Container = styled.div`
   align-items: center;
   row-gap: 5px;
   font-size: 13px;
-  font-weight: 400;
 `;
 const SeatInfo = styled.div`
   display: flex;
